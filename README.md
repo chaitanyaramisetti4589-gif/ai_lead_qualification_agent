@@ -9,7 +9,6 @@ https://ai-qualify-hub.lovable.app/lead-agent.html
 
 # 📸 Preview
 
-<img width="810" height="337" alt="Screenshot 2026-07-14 180225" src="https://github.com/user-attachments/assets/6c431cd7-e829-4e8c-9ef8-0a0bb6f6da44" />
 <img width="1910" height="922" alt="Screenshot 2026-07-14 184749" src="https://github.com/user-attachments/assets/75a2e68d-8760-499f-9db5-52a247112650" />
 <img width="1888" height="918" alt="Screenshot 2026-07-14 184915" src="https://github.com/user-attachments/assets/817722e6-be01-4950-90ba-e08476204b55" />
 <img width="1892" height="911" alt="Screenshot 2026-07-14 184934" src="https://github.com/user-attachments/assets/83d22394-cd6e-433e-b2dd-49a7a29e9b61" />
