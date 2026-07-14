@@ -3,6 +3,9 @@
 An AI-powered Lead Qualification Agent built with **n8n** and **Google Gemini** that automatically analyzes incoming business leads, scores them based on multiple business factors, stores them in Google Sheets, and notifies the sales team about high-priority opportunities.
 
 ---
+## 🌐 Live Demo
+
+https://ai-qualify-hub.lovable.app/lead-agent.html
 
 ## 🚀 Features
 
