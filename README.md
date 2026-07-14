@@ -1,36 +1,43 @@
 # 🤖 AI Lead Qualification Agent
 
-An AI-powered Lead Qualification Agent built with **n8n** and **Google Gemini** that automatically analyzes incoming business leads, scores them based on multiple factors, and returns structured insights to help sales teams prioritize prospects.
+An AI-powered Lead Qualification Agent built with **n8n** and **Google Gemini** that automatically analyzes incoming business leads, scores them based on multiple business factors, stores them in Google Sheets, and notifies the sales team about high-priority opportunities.
 
 ---
 
 ## 🚀 Features
 
-- 📥 Accepts lead information via Webhook
-- 🧠 Uses Google Gemini AI to analyze lead quality
+- 📥 Accepts business leads through a Webhook
+- 🤖 AI-powered lead analysis using Google Gemini
 - 📊 Generates a Lead Score (0–100)
-- 🚦 Assigns Priority (High, Medium, Low)
+- 🚦 Classifies leads as High, Medium, or Low priority
 - 💼 Recommends the most suitable AI service
-- 📝 Explains the reasoning behind the score
-- ✅ Suggests the next action for the sales team
+- 📝 Provides reasoning behind the lead score
+- 📌 Suggests the next sales action
 - 💰 Estimates project value
-- 📄 Returns structured JSON output
+- 📄 Generates a concise business summary
+- 📈 Automatically stores all leads in Google Sheets
+- 📧 Sends Gmail notifications for high-priority leads
+- 🔀 Uses conditional workflow with IF Node
+- 🌐 Returns a structured JSON API response
 
 ---
 
 ## 🛠️ Tech Stack
 
-- **n8n**
-- **Google Gemini**
-- **Webhook**
-- **Structured Output Parser**
-- **Postman** (for testing)
+- n8n
+- Google Gemini
+- Google Sheets
+- Gmail
+- Webhooks
+- Structured Output Parser
+- IF Node
+- Postman
 
 ---
 
-## 📌 Workflow
+## 🏗️ Workflow Architecture
 
-```
+```text
 POST Request
       │
       ▼
@@ -43,6 +50,18 @@ Google Gemini AI
 Structured Output Parser
       │
       ▼
+IF Node
+ ├──────────────┐
+ ▼              ▼
+High        Medium/Low
+ │              │
+ ▼              ▼
+Google Sheets  Google Sheets
+ │
+ ▼
+Gmail Notification
+ │
+ ▼
 Respond to Webhook
 ```
 
@@ -58,32 +77,47 @@ Respond to Webhook
   "industry": "Education",
   "budget": 10000,
   "employees": 30,
-  "requirement": "Need AI automation for emails.",
+  "requirement": "Need AI automation for email support and lead management.",
   "timeline": "1 month"
 }
 ```
 
 ---
 
-## 📤 Sample Output
+## 📤 Sample API Response
 
 ```json
 {
+  "success": true,
+  "message": "Lead processed successfully.",
   "leadScore": 80,
   "priority": "High",
-  "recommendedService": "AI Email Automation",
-  "reason": "The company has a clear requirement and a budget in place.",
-  "nextAction": "Schedule a discovery call within 24 hours.",
-  "estimatedProjectValue": "$10,000",
-  "summary": "StartupX needs AI automation for emails with a budget of $10,000 and a timeline of 1 month."
+  "recommendedService": "AI Automation Services",
+  "nextAction": "Follow up with a demo"
 }
 ```
 
 ---
 
-## 📊 Lead Evaluation Criteria
+## 📊 Sample AI Output
 
-The AI evaluates each lead using:
+```json
+{
+  "leadScore": 80,
+  "priority": "High",
+  "recommendedService": "AI Automation Services",
+  "reason": "The company has a clear business requirement and sufficient budget.",
+  "nextAction": "Schedule a discovery call within 24 hours.",
+  "estimatedProjectValue": "$10,000",
+  "summary": "StartupX requires AI automation for email support with a one-month implementation timeline."
+}
+```
+
+---
+
+## 📈 Lead Evaluation Criteria
+
+The AI evaluates each lead based on:
 
 - Budget
 - Company Size
@@ -91,57 +125,87 @@ The AI evaluates each lead using:
 - Requirement Clarity
 - Timeline
 - Business Need
+- Potential Project Value
+
+---
+
+## 📧 High Priority Workflow
+
+When a lead receives a **High Priority** score:
+
+- ✅ Store lead in Google Sheets
+- ✅ Send Gmail notification
+- ✅ Return success response to the client
+
+For **Medium** and **Low Priority** leads:
+
+- ✅ Store lead in Google Sheets
+- ❌ No Gmail notification
+- ✅ Return success response
+
+---
+
+## 🌐 API Response
+
+The workflow returns a clean JSON response suitable for frontend applications.
+
+Example:
+
+```json
+{
+  "success": true,
+  "message": "Lead processed successfully.",
+  "leadScore": 80,
+  "priority": "High",
+  "recommendedService": "AI Automation Services",
+  "nextAction": "Follow up with a demo"
+}
+```
 
 ---
 
 ## 🎯 Use Cases
 
-- Sales Lead Qualification
+- AI Lead Qualification
+- Sales Automation
 - CRM Automation
 - Marketing Lead Scoring
-- AI Sales Assistant
 - Business Process Automation
+- AI Sales Assistant
+- Customer Lead Prioritization
 
 ---
 
-## 📁 Project Structure
+## 📂 Project Structure
 
 ```
-ai-lead-qualification-agent/
+ai_lead_qualification_agent/
 │
-├── workflow.json
+├── ai_lead_qualification_agent.json
 ├── README.md
-└── screenshots/
+└── Screenshots/
 ```
 
 ---
 
-## 🧪 How to Test
+## ⚙️ How to Test
 
 ### Using Postman
 
 1. Create a **POST** request.
-2. Paste the Webhook URL from n8n.
-3. Set:
+2. Paste the n8n Webhook URL.
+3. Set the header:
 
 ```
 Content-Type: application/json
 ```
 
-4. Send a JSON payload.
-5. Receive the AI-generated lead analysis.
-
----
-
-## 📈 Future Improvements
-
-- Google Sheets Integration
-- Gmail Notifications
-- Slack Alerts
-- CRM Integration (HubSpot/Salesforce)
-- Lead Dashboard
-- Analytics & Reporting
-- Multi-language Support
+4. Send a business lead as JSON.
+5. Observe the AI-generated response.
+6. Verify:
+   - Google Sheets updated.
+   - Gmail notification (High Priority only).
+   - JSON response returned.
 
 ---
 
@@ -149,18 +213,53 @@ Content-Type: application/json
 
 ### n8n Workflow
 
-<img width="1667" height="793" alt="workflow" src="https://github.com/user-attachments/assets/6c1f0702-1e1c-4797-af8b-46df70fd6b3a" />
+<img width="1673" height="801" alt="Screenshot 2026-07-14 175332" src="https://github.com/user-attachments/assets/05720eb5-870c-4b4e-bc38-f3e8e00285fc" />
+
+
+### Google Sheets
+
+<img width="1896" height="300" alt="Screenshot 2026-07-14 175826" src="https://github.com/user-attachments/assets/bf77ac6b-c82b-4e0f-954e-9ebd7f0740e2" />
+
+
+### Gmail Notification
+
+<img width="1917" height="915" alt="Screenshot 2026-07-14 180109" src="https://github.com/user-attachments/assets/49308f9c-c2da-4c3f-b192-ba02cf28e213" />
 
 
 ### Postman Request
 
-<img width="815" height="605" alt="request" src="https://github.com/user-attachments/assets/74032ba8-e2ef-4b37-80f2-fc6878fcce98" />
+<img width="796" height="661" alt="Screenshot 2026-07-14 180156" src="https://github.com/user-attachments/assets/d6cfda7a-9657-4905-90b4-d9786eea0120" />
 
 
-### AI Response
+### API Response
 
-<img width="802" height="582" alt="response" src="https://github.com/user-attachments/assets/cddd2e41-364a-44dd-9fe8-0376cb39ba19" />
+<img width="810" height="337" alt="Screenshot 2026-07-14 180225" src="https://github.com/user-attachments/assets/29f61418-971e-4ee0-bd89-882fcc98846d" />
 
+
+---
+
+## ✨ Version 2 Enhancements
+
+- Google Sheets Integration
+- Gmail Notifications
+- Conditional Workflow using IF Node
+- AI Lead Qualification
+- Automated Lead Storage
+- Structured API Response
+- Business Workflow Automation
+
+---
+
+## 🔮 Future Improvements
+
+- HubSpot Integration
+- Salesforce Integration
+- Slack Notifications
+- Microsoft Teams Notifications
+- Lead Analytics Dashboard
+- PDF Lead Reports
+- Multi-language Support
+- Follow-up Email Automation
 
 ---
 
@@ -168,10 +267,14 @@ Content-Type: application/json
 
 **Chaitanya Ramisetti**
 
-AI Engineering & AI Automation Enthusiast
+AI Engineering | AI Automation | Python Developer
 
 GitHub: https://github.com/chaitanyaramisetti4589-gif
 
 ---
 
-## ⭐ If you found this project useful, consider giving it a star!
+## ⭐ Support
+
+If you found this project useful, consider giving it a ⭐ on GitHub!
+
+Feedback and contributions are always welcome.
